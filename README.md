@@ -15,26 +15,37 @@ for audio the english transcript will be extracted generated.
 
 when the process finishes, the status of this task will be marked as finished and the new generated transcript will be available to download
 
+## 2. prequisities
 
-## 2. Installation and usage
+python3
+ffmpeg
+rabbitmq
 
-### 2.1 downlaod model file
+## 3. Installation and usage
+
+### 3.1 install packages
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3.2 downlaod model file
 Download pretrained model from
 https://github.com/mozilla/DeepSpeech/releases/download/v0.8.2/deepspeech-0.8.2-models.tflite
-and save it into `models` folder
+and save it into `flaskr/models` folder
 
-### 2.2  start rabbitmq
+### 3.3  start rabbitmq
 ```bash
 sudo rabbitmq-server
 ```
 
-### 2.3 start celery
+### 3.4 start celery
 
 ```bash
 celery -A flaskr.task.celery_app worker
 ```
 
-### 2.3 init the database and run flask
+### 3.5 init the database and run flask
 
 ```bash
 export FLASK_APP=flaskr 
@@ -43,23 +54,28 @@ flask init-db
 flask run
 ```
 
-## 3. screenshots
+## 4. screenshots
 
-### 3.1 Main page
+### 4.1 Main page
 After uploading a  video file, a link to task will be present
 
 ![upload file](docs/screenshots/1-upload-file.png)
+
+### 4.2 Task pending
 
 The processing will last few minutes
 
 ![upload file](docs/screenshots/2-task-pending.png)
 
-Task page will automatically refresh every 30 seconds, 
+Task page will automatically refresh every 30 seconds
+
+### 4.3 Task finished
+
 after task finished, the result transcript will be present and available to download
 
 ![upload file](docs/screenshots/3-Task-finished.png)
 
-## 4. To be improved
+## 5. To be improved
 
 1. Restriction on the video user could upload
 2. Paralleling the workers
@@ -71,11 +87,10 @@ after task finished, the result transcript will be present and available to down
 8. Add detailed tutorial
 9. Add video preview html part
 
-## 5. Tips on accelerate the process
+## 6. Tips on accelerate the process
 1. use ffmpeg command to handle video and audio file, especially remove the silence part of the audio
 2. use lightweight pretrained models, load model once only.
 3. limits the max video size to be processed
-4. 
 
 ## References
 1. DeepSpeech https://github.com/mozilla/DeepSpeech
