@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<meta http-equiv="refresh" content="30"/>
+{% endblock %}
+{% block title %}Task Status{% endblock %}
+
+{% block main %}
+<div class="card">
+  <h5 class="card-header">Task ID : {{ task['id'] }} </h5>
+  <div class="card-body">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Info</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>File name</td>
+        <td>
+          <span id="filename">
+            {{ task['filename'] }}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>Task start at</td>
+        <td>{{ task['created'] }}</td>
+      </tr>
+
+      <tr>
+        <td>Task status</td>
+        <td>
+          {% if task['status'] == 'pending' %}
+          <button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+            </span>
+            Pending...
+          </button>
+          {% else %}
+          <button class="btn btn-primary" type="button" disabled>
+            Finished!
+          </button>
+          {% endif %}
+        </td>
+      </tr>
+
+      {% if task['status'] == 'finished' %}
+      <tr>
+        <td>Task finished at</td>
+        <td>{{ task['finished'] }}</td>
+      </tr>
+      <tr>
+        <td>Result transcript :</td>
+        <td>
+          <span id="result">
+            {{ task['result'] }}
+          </span>
+          <br>
+          <a class="btn btn-primary" id="download" role="button">Download</a>
+        </td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+// Start file download.
+document.getElementById("download").addEventListener("click", function(){
+    var text = document.getElementById("result").innerText;
+    var filename = document.getElementById("filename").innerText.split('.')[0]+'.txt';
+    download(filename, text);
+}, false);
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!--a template for other website pages-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    {% block meta %}{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" crossorigin="anonymous">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <div class="container">
+      <!--      nav bar part-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">ASDVAS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <h1 style="margin: 3rem auto">A Simple Deep Learning Based Video Analysis System</h1>
+      <!--      main part-->
+      {% block main %}{% endblock %}
+      {% block script %}{% endblock %}
+
+      <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    </div>
+  </body>
+</html>
