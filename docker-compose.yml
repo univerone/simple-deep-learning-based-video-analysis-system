@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  web:
+    image: univeroner/simple-deep-learning-based-video-analysis-system
+    restart: always
+    ports:
+      - "5000:80"
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./app:/app
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5673:5672"
+      - "15672:15672"
+  worker:
+    image: univeroner/simple-deep-learning-based-video-analysis-system
+    hostname: worker_1
+    entrypoint: celery
+    command: -A flaskr.task.celery_app worker --loglevel=info
+    volumes:
+      - ./app:/app
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq

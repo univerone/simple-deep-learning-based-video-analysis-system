@@ -1,15 +1,7 @@
-FROM python:3.8
-WORKDIR /app
-COPY . /app
+FROM tiangolo/meinheld-gunicorn-flask:python3.8
 
-# Install the dependencies
-RUN pip install -r requirements.txt
-RUN sudo apt install ffmpeg
-RUN sudo bash rabbitmq-install.sh
-RUN sudo rabbitmq-server
-RUN celery -A flaskr.task.celery_app worker
-RUN cd flaskr
-RUN export FLASK_APP=flaskr 
-RUN export FLASK_ENV=development
-RUN flask init-db
-RUN flask run
+COPY ./app /app
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt 
+RUN apt-get update && apt-get install -y software-properties-common
+RUN apt-get install -y ffmpeg
+RUN export FLASK_APP=flaskr && export FLASK_ENV=development && flask init-db

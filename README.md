@@ -2,7 +2,7 @@
 A simple video analysis system for coding test
 
 ## 1. Introduction
-Flask + sqlLite + Celery
+Flask + sqlLite + Celery + Rabbitmq
 
 This is a simple video analysis system with both front-end and  back-end.
 
@@ -17,11 +17,13 @@ when the process finishes, the status of this task will be marked as finished an
 
 ## 2. prequisities
 
-python3
-ffmpeg
-rabbitmq
+- python3
+- ffmpeg
+- rabbitmq
 
 ## 3. Installation and usage
+
+first, go into app folder
 
 ### 3.1 install packages
 
@@ -32,7 +34,7 @@ pip install -r requirements.txt
 ### 3.2 downlaod model file
 Download pretrained model from
 https://github.com/mozilla/DeepSpeech/releases/download/v0.8.2/deepspeech-0.8.2-models.tflite
-and save it into `flaskr/models` folder
+and save it into `app/flaskr/models` folder
 
 ### 3.3  start rabbitmq
 ```bash
@@ -54,14 +56,30 @@ flask init-db
 flask run
 ```
 
-## 4. screenshots
+## 4. Run in docker(recommended)
 
-### 4.1 Main page
+### 4.1 build the image
+
+```bash
+docker-compose build .
+```
+
+### 4.2 run the network
+
+```bash
+docker-compose up
+```
+
+now you can go to visit http://localhost:5000
+
+## 5. screenshots
+
+### 5.1 Main page
 After uploading a  video file, a link to task will be present
 
 ![upload file](docs/screenshots/1-upload-file.png)
 
-### 4.2 Task pending
+### 5.2 Task pending
 
 The processing will last few minutes
 
@@ -69,13 +87,13 @@ The processing will last few minutes
 
 Task page will automatically refresh every 30 seconds
 
-### 4.3 Task finished
+### 5.3 Task finished
 
 after task finished, the result transcript will be present and available to download
 
 ![upload file](docs/screenshots/3-Task-finished.png)
 
-## 5. To be improved
+## 6. To be improved
 
 1. Restriction on the video user could upload
 2. Paralleling the workers
@@ -87,7 +105,7 @@ after task finished, the result transcript will be present and available to down
 8. Add detailed tutorial
 9. Add video preview html part
 
-## 6. Tips on accelerate the process
+## 7. Tips on accelerate the process
 1. use ffmpeg command to handle video and audio file, especially remove the silence part of the audio
 2. use lightweight pretrained models, load model once only.
 3. limits the max video size to be processed

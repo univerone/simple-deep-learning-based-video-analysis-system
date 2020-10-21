@@ -1,6 +1,7 @@
 .idea
 instance
 sample.mp4
+app/models/deepspeech-0.8.2-models.tflite
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
