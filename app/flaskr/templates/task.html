@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
-{% block meta %}
+{% block head %}
 <meta http-equiv="refresh" content="30"/>
+<link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
 {% endblock %}
+
 {% block title %}Task Status{% endblock %}
 
 {% block main %}
@@ -53,6 +55,29 @@
         <td>{{ task['finished'] }}</td>
       </tr>
       <tr>
+        <td>Result video file </td>
+        <td>
+        <video
+          class="video-js"
+          controls
+          preload="auto"
+          style = "width: 800px; height: 600px; margin-bottom: 20px"
+        >
+          <source src="/uploads/{{ task['video'] }}" type="video/mp4" />
+          <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank"
+              >supports HTML5 video</a
+            >
+          </p>
+        </video>
+          <a class="btn btn-primary" role="button" href="/uploads/{{ task['video'] }}">
+            Download
+          </a>
+        </td>
+      </tr>
+      <tr>
         <td>Result transcript :</td>
         <td>
           <span id="result">
@@ -92,4 +117,5 @@ document.getElementById("download").addEventListener("click", function(){
     download(filename, text);
 }, false);
 </script>
+<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
 {% endblock %}

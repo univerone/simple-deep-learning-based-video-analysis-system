@@ -1,24 +1,19 @@
 import os
 from pathlib import Path
 
-from flask import Blueprint, flash, request, redirect, render_template
+from flask import Blueprint, flash, request, redirect, render_template, send_from_directory
 from werkzeug.utils import secure_filename
-from flaskr.worker import process_video
+from flaskr.worker import process_file
 
 from flaskr.db import get_db
-
+from flaskr.conf import ALLOWED_EXTENSIONS, MAX_VIDEO_LENGTH, UPLOAD_FOLDER
 
 bp = Blueprint('index', __name__)
 
 
-
-UPLOAD_FOLDER = 'flaskr/uploads'
-ALLOWED_EXTENSIONS = {'mp4', 'mkv', 'flv'}
-MAX_VIDEO_LENGTH = 50 * 1024 * 1024  # max video size to be uploaded
-
-
 def allowed_file(filename):
     """
+    supported file type: *.mp4, *.flv, *.mkv
     :param filename: the name of file to be uploaded
     :return: If the file are allowed
     """
@@ -28,7 +23,7 @@ def allowed_file(filename):
 
 def allowed_size(filesize):
     """
-
+    supported file size: below 50MB
     :param filesize: the file size (type of str) of video to be uploaded
     :return: if this video size exceeds the limit
     """
@@ -58,7 +53,7 @@ def index():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             db = get_db()
-            cursor =db.execute(
+            cursor = db.execute(
                 'INSERT INTO TASK (filename, status) VALUES (?, ?)',
                 (filename, 'pending')
             )
@@ -69,12 +64,13 @@ def index():
             flash(f'Upload succeed! You can view task status at <a href="/task/{taskid}" class="alert-link">here</a>',
                   'success')
             # send the task to task queue
-            process_video.delay(taskid)
+            process_file.delay(taskid)
             return redirect(request.url)
         else:
             flash('The video type is not supported now', 'warning')
             return redirect(request.url)
     return render_template('index.html')
+
 
 @bp.route("/about")
 def about():
@@ -90,3 +86,8 @@ def task_status(taskid):
         (taskid,)
     ).fetchone()
     return render_template("task.html", task=task)
+
+
+@bp.route('/uploads/<filename>')
+def upload(filename):
+    return send_from_directory('uploads', filename)

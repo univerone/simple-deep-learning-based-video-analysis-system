@@ -2,6 +2,8 @@
 instance
 sample.mp4
 app/models/deepspeech-0.8.2-models.tflite
+app/flaskr/uploads/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

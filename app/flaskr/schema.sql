@@ -9,5 +9,6 @@ CREATE TABLE TASK (
   finished TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   filename TEXT NOT NULL,
   status TEXT NOT NULL,
-  result TEXT DEFAULT ''
+  result TEXT DEFAULT '',
+  video TEXT DEFAULT ''
 );

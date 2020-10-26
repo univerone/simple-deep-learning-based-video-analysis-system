@@ -1,3 +1,4 @@
 celery
 deepspeech-tflite==0.8.2
 Flask
+opencv-python

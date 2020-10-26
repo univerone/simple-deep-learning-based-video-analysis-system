@@ -118,3 +118,6 @@ after task finished, the result transcript will be present and available to down
 5. Jinja documentation https://jinja.palletsprojects.com/en/2.10.x/
 6. bootstrap documentation https://getbootstrap.com/
 7. Generate Subtitles for any video file using Mozilla DeepSpeech https://towardsdatascience.com/generating-subtitles-automatically-using-mozilla-deepspeech-562c633936a7
+8. Object Detection Models https://docs.openvinotoolkit.org/latest/omz_models_intel_index.html#object_detection_models
+9. Getting Started with Videos https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html
+10. Face detection with OpenCV and deep learning https://www.pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/
