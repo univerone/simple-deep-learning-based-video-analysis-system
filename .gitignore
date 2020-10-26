@@ -2,6 +2,7 @@
 instance
 sample.mp4
 app/models/deepspeech-0.8.2-models.tflite
+app/models/res10_300x300_ssd_iter_140000_fp16.caffemodel
 app/flaskr/uploads/*
 
 # Byte-compiled / optimized / DLL files
