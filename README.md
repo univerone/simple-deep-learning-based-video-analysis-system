@@ -5,8 +5,8 @@ A simple video analysis system for coding test
 
 ### 2020-10-26
 
-Add video processing part (Thanks to  [opencv](https://docs.opencv.org/master/d6/d00/tutorial_py_root.html) and [pretrained caffe dnn model](https://github.com/spmallick/learnopencv/blob/master/FaceDetectionComparison/models/res10_300x300_ssd_iter_140000_fp16.caffemodel))
-Add html video preview part(Thanks to [video.js](https://videojs.com/))
+- Add video processing part (Thanks to  [opencv](https://docs.opencv.org/master/d6/d00/tutorial_py_root.html) and [pretrained caffe dnn model](https://github.com/spmallick/learnopencv/blob/master/FaceDetectionComparison/models/res10_300x300_ssd_iter_140000_fp16.caffemodel))
+- Add html video preview part(Thanks to [video.js](https://videojs.com/))
 
 
 ## 1. Introduction
